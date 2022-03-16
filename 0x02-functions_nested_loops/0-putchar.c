@@ -6,13 +6,15 @@
 * Return: 0
 */
 
-int main()
+int main(void)
 {
+	int i;
 	char myText[] = "_putchar";
 
-	for (int i = 0; i < 8; i++)
+	for (i = 0; i < 8; i++)
 	{
 		putchar(myText[i]);
 	}
 	putchar('\n');
+	return 0;
 }
