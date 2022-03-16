@@ -16,5 +16,5 @@ int main(void)
 		putchar(myText[i]);
 	}
 	putchar('\n');
-	return 0;
+	return (0);
 }
