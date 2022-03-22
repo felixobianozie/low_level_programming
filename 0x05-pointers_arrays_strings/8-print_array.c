@@ -3,9 +3,6 @@
 /**
  * print_array - prints n elements of an array of integers, 
  * followed by a new line.
- * @a: parameter
- * @n: parameter
- * @i: parameter
  *
  * Return: void.
  */

@@ -2,7 +2,6 @@
  * swap_int - does swapping of memory contents
  * @a: parameter
  * @b: parameter
- * @x: parameter
  *
  * Return: void.
  */
