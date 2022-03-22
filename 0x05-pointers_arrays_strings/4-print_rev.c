@@ -2,6 +2,8 @@
 
 /**
  * print_rev - prints a string, in reverse, followed by a new line
+ * @i: parameter
+ * @myLen: parameter
  *
  * Return: void.
  */

@@ -1,5 +1,6 @@
 /**
  * reset_to_98 - sets value in memory location to 98.
+ * @n: parameter
  *
  * Return: void.
  */

@@ -2,6 +2,9 @@
 
 /**
  * rev_string - reverses a string.
+ *@myCh: parameter
+ *@i: parameter
+ *@j: parameter
  *
  * Return: void.
  */

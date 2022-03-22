@@ -2,6 +2,10 @@
 
 /**
  * puts_half - prints half of a string, followed by a new line.
+ * @i: parameter
+ * @a: parameter
+ * @b: parameter
+ * @str: parameter
  *
  * Return: void.
  */
