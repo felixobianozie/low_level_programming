@@ -3,8 +3,7 @@
 /**
  * rev_string - reverses a string.
  *@myCh: parameter
- *@i: parameter
- *@j: parameter
+ *@s: parameter
  *
  * Return: void.
  */
@@ -15,11 +14,12 @@ void rev_string(char *s)
 	int i = strlen(s);
 	int j = 0;
 
-	for(j; j < i; j++)
+	while (j < i)
 	{
 		i--;
 		myCh = s[j];
 		s[j] = s[i];
 		s[i] = myCh;
+		j += 1;
 	}
 }

@@ -2,8 +2,7 @@
 
 /**
  * print_rev - prints a string, in reverse, followed by a new line
- * @i: parameter
- * @myLen: parameter
+ * @s: parameter
  *
  * Return: void.
  */
@@ -12,9 +11,10 @@ void print_rev(char *s)
 {
 	int myLen = strlen(s);
 	int i = (myLen - 1);
-	for (i; i >= 0; i--)
+	while (i >= 0)
 	{
-	_putchar(s[i]);
+		_putchar(s[i]);
+		i -= 1;
 	}
 	_putchar('\n');
 }
