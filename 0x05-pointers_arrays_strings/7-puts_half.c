@@ -2,9 +2,6 @@
 
 /**
  * puts_half - prints half of a string, followed by a new line.
- * @i: parameter
- * @a: parameter
- * @b: parameter
  * @str: parameter
  *
  * Return: void.
@@ -18,7 +15,7 @@ void puts_half(char *str)
 
 	if (a % 2)
 	{
-		b = ((a - 1) / 2);
+		b = ((a - 1) / 2) + 1;
 	} else
 	{
 		b = (a / 2);
