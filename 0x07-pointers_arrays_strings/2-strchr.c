@@ -1,30 +1,18 @@
+#include "main.h"
 /**
- * _strchr - Returns a pointer to the first occurrence of the
- * character c in the string s, or NULL if the character is not found.
- * @s: string to be searched
- * @c: character to match
- * 
- * Doing it the Felix Obianozie way.
- * Return: pointer to the first occurence of c OR NULL if no match is found.
+ * _strchr - locates a character in a string,
+ * @s: string.
+ * @c: character.
+ * Return: the pointer to the first occurrence of the character c.
  */
 char *_strchr(char *s, char c)
 {
-	int slen = 0;
-	int i = 0;
-	while (s[slen] != '\0')
-	{
-		slen++;
-	}
-	while (i < slen)
-	{
-		if (s[i] == c)
-		{
-			return ((s+i));
-			break;
-		} else if (i == (slen - 1))
-		{
-		return (NULL);
-		}
-	i++;
-	}
+	unsigned int i = 0;
+
+	for (; *(s + i) != '\0'; i++)
+		if (*(s + i) == c)
+			return (s + i);
+	if (*(s + i) == c)
+		return (s + i);
+	return ('\0');
 }
