@@ -11,6 +11,7 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 {
 	/*Declare pointer variable*/
 	char *ptr;
+	unsigned int i;
 
 	/*Verify that input parameters are not null*/
 	if (nmemb == 0 || size == 0)
@@ -24,8 +25,6 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 		return (NULL);
 
 	/*Fill reserved memory with 0*/
-	int i;
-
 	for (i = 0; i < (size * nmemb); i++)
         {
                 ptr[i] = 0;
