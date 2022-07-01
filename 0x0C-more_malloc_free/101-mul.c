@@ -44,6 +44,10 @@ int main(int argc, char **argv)
 	if (num1 == NULL || num2 == NULL || mul == NULL || sum == NULL)
 	{
 		printf("Malloc failed!\n");
+		free(num1);
+        	free(num2);
+        	free(mul);
+        	free(sum);
 		exit(98);
 	}
 
@@ -142,6 +146,10 @@ void my_atoi(char *s, int s_len, char *buffer)
 		if (s[i] < '0' || s[i] > '9')
 		{
 			printf("Error\n");
+			free(num1);
+        		free(num2);
+        		free(mul);
+        		free(sum);
 			exit(98);
 		}
 
