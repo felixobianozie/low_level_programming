@@ -4,8 +4,111 @@
 #include <stdlib.h>
 
 /**
+ * main - multiplies two positive numbers
+ * @argc: arguments count
+ * @argv: array of arguments (pointers)
+ *
+ * Return: 0 on Success, 98 upon failure
+ * Author: Felix Obianozie
+ */
+int main(int argc, char **argv)
+{
+	int i, j, k, l, ndex, len_1, len_2, total_len;
+	char *num1, *num2, *mul, *sum;
+
+	ndex = 0;
+	k = 0;
+
+	/*Check that only two arguments are passed to program*/
+	if (argc != 3)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+
+	/*Get length of each argument passed*/
+	len_1 = str_len(argv[1]);
+	len_2 = str_len(argv[2]);
+	total_len = len_1 + len_2;
+
+	/*Reserve memory space using malloc*/
+	num1 = malloc(sizeof(char) * len_1);
+	num2 = malloc(sizeof(char) * len_2);
+	if (len_1 >= len_2)
+		mul = malloc(sizeof(char) * (len_1 + 1));
+	else
+		mul = malloc(sizeof(char) * (len_2 + 1));
+	sum = malloc(sizeof(char) * total_len);
+
+	/*Verify that malloc did not fail*/
+	if (num1 == NULL || num2 == NULL || mul == NULL || sum == NULL)
+	{
+		printf("Malloc failed!\n");
+		exit(98);
+	}
+
+	/*Convert arguments to array of digits*/
+	my_atoi(argv[1], len_1, num1);
+	my_atoi(argv[2], len_2, num2);
+
+	/*Fill sum with 0*/
+	for (k = 0; k <= total_len; k++)
+		sum[k] = 0;
+
+	/*Perform multiplication*/
+	for (i = 1; i <= len_2; i++)
+	{
+		for (j = 1; j <= len_1; j++)
+		{
+			mul[j - 1] = mul[j - 1] + (num2[len_2 - i] * num1[len_1 - j]);
+			if (mul[j - 1] > 9)
+			{
+				mul[j] = mul[j - 1] / 10;
+				mul[j - 1] = mul[j - 1] % 10;
+			}
+		}
+
+		/*Perform addition*/
+		for (k = ndex, l = 0; k < len_1 + ndex + 1; k++, l++)
+		{
+			sum[k] = sum[k] + mul[l];
+			if (sum[k] > 9)
+			{
+				sum[k + 1] = sum[k + 1] + (sum[k] / 10);
+				sum[k] = sum[k] % 10;
+			}
+
+			/*Initialize the memory space for future data*/
+			mul[l] = 0;
+		}
+		ndex++;
+	}
+
+	/*Print result from end to front of sum*/
+	i = total_len;
+
+	while (sum[i] == 0)
+		i--;
+	while (i >= 0)
+	{
+		putchar(sum[i] + '0');
+		i--;
+	}
+	putchar('\n');
+
+	/*Release all reserved memory space*/
+	free(num1);
+	free(num2);
+	free(mul);
+	free(sum);
+
+	return (0);
+}
+
+/**
  * str_len - calculates length of string
  * @str: pointer to string
+ *
  * Return: length of string
  */
 int str_len(char *str)
@@ -18,148 +121,38 @@ int str_len(char *str)
 }
 
 /**
- * _calloc - allocates memory for an array using malloc
- * @bytes: bytes of memory needed per size
- * @size: size of data struct (array)
- * Return: pointer to the allocated memory
- */
-void *_calloc(unsigned int bytes, unsigned int size)
-{
-	unsigned int i;
-	char *p;
-
-	if (bytes == 0 || size == 0)
-		return (NULL);
-	p = malloc(size * bytes);
-	if (p == NULL)
-		return (NULL);
-	for (i = 0; i < bytes * size; i++)
-		p[i] = 0;
-	return (p);
-}
-
-/**
- * add_arrays - adds 2 arrays of ints
- * @mul_result: pointer to array of products
- * @sum_result: pointer to array of sums
- * @len_r: length of both arrays
+ * my_atoi - converts a string to an integer
+ * @s: string to be converted
+ * @s_len: length of s
+ * @buffer: pointer to storage buffer for expected array of integers
+ *
  * Return: void
  */
-void add_arrays(int *mul_result, int *sum_result, int len_r)
+void my_atoi(char *s, int s_len, char *buffer)
 {
-	int i = 0, len_r2 = len_r - 1, carry = 0, sum;
+	int i, digit;
 
-	while (i < len_r)
+	i = 0;
+	digit = 0;
+	*buffer = 0;
+
+	while (i < s_len)
 	{
-		sum = carry + mul_result[len_r2] + sum_result[len_r2];
-		sum_result[len_r2] = sum % 10;
-		carry = sum / 10;
-		i++;
-		len_r2--;
-	}
-}
-
-/**
- * is_digit - checks for digits
- * @c: character to check if digit
- * Return: 0 failure, 1 success
- */
-int is_digit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	printf("Error\n");
-	return (0);
-}
-
-/**
- * multiply - multiplies 2 #'s, prints result, must be 2 #'s
- * @num1: factor # 1 (is the smaller of 2 numbers)
- * @len_1: length of factor 1
- * @num2: factor # 2 (is the larger of 2 numbers)
- * @len_2: length of factor 2
- * @len_r: length of result arrays
- * Return: 0 fail, 1 success
- */
-int *multiply(char *num1, int len_1, char *num2, int len_2, int len_r)
-{
-	int i = 0, i1 = len_1 - 1;
-	int i2, product, carry, digit, *mul_result, *sum_result;
-
-	sum_result = _calloc(sizeof(int), (len_r));
-	while (i < len_1)
-	{
-		mul_result = _calloc(sizeof(int), len_r);
-		i2 = len_2 - 1, digit = (len_r - 1 - i);
-		if (!is_digit(num1[i1]))
-			return (NULL);
-		carry = 0;
-		while (i2 >= 0)
+		/*All characters of string must be digits, else exit*/
+		if (s[i] < '0' || s[i] > '9')
 		{
-			if (!is_digit(num2[i2]))
-				return (NULL);
-			product = (num1[i1] - '0') * (num2[i2] - '0');
-			product += carry;
-			mul_result[digit] += product % 10;
-			carry = product / 10;
-			digit--, i2--;
+			printf("Error\n");
+			exit(98);
 		}
-		add_arrays(mul_result, sum_result, len_r);
-		free(mul_result);
-		i++, i1--;
-	}
-	return (sum_result);
-}
 
-/**
- * print_me - prints my array of the hopeful product here
- * @sum_result: pointer to int array with numbers to add
- * @len_r: length of result array
- * Return: void
- */
-void print_me(int *sum_result, int len_r)
-{
-	int i = 0;
+		/*Convert character to actual digit (int)*/
+		digit = s[i] - '0';
 
-	while (sum_result[i] == 0 && i < len_r)
+		/*Append to array*/
+		buffer[i] = digit;
 		i++;
-	if (i == len_r)
-		putchar('0');
-	while (i < len_r)
-		putchar(sum_result[i++] + '0');
-	putchar('\n');
-}
-
-/**
- * main - multiply 2 input #'s of large lengths and print result or print Error
- * @argc: arguments count
- * @argv: array of arguments (pointers)
- * Return: 0 on Success, 98 upon failure
- */
-int main(int argc, char **argv)
-{
-	int len_1, len_2, len_r, temp, *sum_result;
-	char *num1, *num2;
-
-	if (argc != 3)
-	{
-		printf("Error\n");
-		exit(98);
 	}
 
-	len_1 = str_len(argv[1]), len_2 = str_len(argv[2]);
-	len_r = len_1 + len_2;
-	if (len_1 < len_2)
-		num1 = argv[1], num2 = argv[2];
-	else
-	{
-		num1 = argv[2], num2 = argv[1];
-		temp = len_2, len_2 = len_1, len_1 = temp;
-	}
-
-	sum_result = multiply(num1, len_1, num2, len_2, len_r);
-	if (sum_result == NULL)
-		exit(98);
-	print_me(sum_result, len_r);
-	return (0);
+	buffer[s_len] = '\0';
 }
+
