@@ -26,9 +26,9 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 
 	/*Fill reserved memory with 0*/
 	for (i = 0; i < (size * nmemb); i++)
-        {
-                ptr[i] = 0;
-        }
+	{
+		ptr[i] = 0;
+	}
 
 	return (ptr);
 }
