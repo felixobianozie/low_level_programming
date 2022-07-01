@@ -3,20 +3,22 @@
 
 /**
  * malloc_checked - allocates memory using malloc
- * @b: unsigned integer
- * Return: ptr
+ * @x: amount of memory to allocate (in bytes)
+ * Return: pointer to allocated memory
  */
-void *malloc_checked(unsigned int b)
+void *malloc_checked(unsigned int x)
 {
 	/*declare a pointer to be used*/
 	int *ptr;
-	/*create memory spaces in heap*/
-	ptr = malloc(b);
-	/*if malloc doesn't create memory*/
+
+	/*reserve memory spaces in heap*/
+	ptr = malloc(x);
+
+	/*if malloc doesn't fails*/
 	if (ptr == NULL)
 	{
 		free(ptr);
-		exit(98);/*i.e: end the program with status value 98*/
+		exit(98); /*Terminate process with 98 as return value*/
 	}
-	return (ptr);/*ptr is the void pointer*/
+	return (ptr);
 }
