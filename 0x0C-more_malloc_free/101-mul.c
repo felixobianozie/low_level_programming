@@ -146,10 +146,6 @@ void my_atoi(char *s, int s_len, char *buffer)
 		if (s[i] < '0' || s[i] > '9')
 		{
 			printf("Error\n");
-			free(num1);
-        		free(num2);
-        		free(mul);
-        		free(sum);
 			exit(98);
 		}
 
