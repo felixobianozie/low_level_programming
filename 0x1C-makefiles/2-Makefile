@@ -8,8 +8,9 @@ all: $(NAME)
 school: $(OBJ)
 	$(CC) $^ -o $(NAME)
 
-main.o: main.c
+%.o: %.c
 	$(CC) -c $<
 
 school.o: school.c
 	$(CC) -c $<
+
